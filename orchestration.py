@@ -118,6 +118,9 @@ def main_flow(
     mlflow.set_experiment("nyc-taxi-experiment-1")
 
     #load
+    gcs_bucket_block = GcsBucket.load(name="my-gcs-bucket")
+    gcs_bucket_block.download_folder_to_path(from_folder="data", to_foler="data")
+
     df_train = read_data(train_path)
     df_val = read_data(val_path)
 
