@@ -11,6 +11,10 @@ import xgboost as xgb
 
 import mlflow
 from prefect import flow, task
+from prefect_gcp import GcsBucket
+from prefect.artifacts import create_markdown_artifact
+from datetime import date
+
 
 
 @task(retries=3, retry_delay_seconds=2)
@@ -105,6 +109,25 @@ def train_model(
 
         mlflow.xgboost.log_model(booster, artifact_path="models_mlflow")
 
+        markdown_rmse_report = f"""# RMSE Report
+
+        ## Summary
+
+        Duration Prediction
+
+        ## RMSE XGBoost Model
+
+        | Region   | RMSE    |
+        | :------- | ------: |
+        | {date.today()} | {rmse:.2f} |
+
+        """
+
+        create_markdown_artifact(
+            key="duration-model-report", markdown=markdown_rmse_report
+        )
+    return None
+
 
 @flow
 def main_flow(
@@ -119,7 +142,7 @@ def main_flow(
 
     #load
     gcs_bucket_block = GcsBucket.load(name="my-gcs-bucket")
-    gcs_bucket_block.download_folder_to_path(from_folder="data", to_foler="data")
+    gcs_bucket_block.download_folder_to_path(from_folder="data", to_folder="data")
 
     df_train = read_data(train_path)
     df_val = read_data(val_path)
