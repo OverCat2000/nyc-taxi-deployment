@@ -144,10 +144,6 @@ def run():
     year = int(sys.argv[2]) #2021
     month = int(sys.argv[3]) #3
     run_id = sys.argv[4] #"1"
-    #RUN_ID = os.getenv("RUN_ID")
-    #apply_model(input_file, run_id, output_file)
-
-    
 
     ride_duration_prediction(taxi_type=taxi_type, run_id=run_id, run_date=datetime(year, month, 1))
 
