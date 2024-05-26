@@ -106,19 +106,33 @@ def get_paths(run_date, taxi_type, run_id):
 
     return input_file, output_file
 
+# @flow
+# def ride_duration_prediction(
+#     taxi_type: str,
+#     run_id: str,
+#     run_date: datetime = None
+# ):
+#     if run_date is None:
+#         ctx = get_run_context()
+#         run_date = ctx.flow_run.expected_start_time
+    
+#     input_file, output_file = get_paths(run_date, taxi_type, run_id)
+
+#     apply_model(input_file, run_id, output_file)
+
 @flow
 def ride_duration_prediction(
-    taxi_type: str,
-    run_id: str,
-    run_date: datetime = None
-):
+        taxi_type: str,
+        run_id: str,
+        run_date: datetime = None):
     if run_date is None:
         ctx = get_run_context()
         run_date = ctx.flow_run.expected_start_time
-    
+
     input_file, output_file = get_paths(run_date, taxi_type, run_id)
 
     apply_model(input_file, run_id, output_file)
+
 
 
     
