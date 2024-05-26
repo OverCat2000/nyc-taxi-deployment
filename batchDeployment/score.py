@@ -114,7 +114,7 @@ def ride_duration_prediction(
 ):
     if run_date is None:
         ctx = get_run_context()
-        run_date = ctx.scheduled_start_time
+        run_date = ctx.flow_run.expected_start_time
     
     input_file, output_file = get_paths(run_date, taxi_type, run_id)
 
