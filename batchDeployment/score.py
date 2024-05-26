@@ -108,8 +108,8 @@ def get_paths(run_date, taxi_type, run_id):
 
 @flow
 def ride_duration_prediction(
-    taxi_type: str = "green",
-    run_id: str = None,
+    taxi_type: str,
+    run_id: str,
     run_date: datetime = None
 ):
     if run_date is None:
@@ -131,12 +131,6 @@ def run():
     run_id = sys.argv[4] #"1"
     #RUN_ID = os.getenv("RUN_ID")
     #apply_model(input_file, run_id, output_file)
-
-    gcp_credentials_block = GcpCredentials.load(name="my-gcp-creds")
-    gcs_credentials_dict = gcp_credentials_block.service_account_info
-
-    with open('gcs_credentials.json', 'w') as f:
-        json.dump(gcs_credentials_dict, f)
 
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath('gcs_credentials.json')
 
