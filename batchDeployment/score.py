@@ -128,6 +128,8 @@ def ride_duration_prediction(
     if run_date is None:
         ctx = get_run_context()
         run_date = ctx.flow_run.expected_start_time
+    
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\malis\\code\\ML\\MLOps\\notebooks\\nyc-taxi-423901-20002e143ea8.json"
 
     input_file, output_file = get_paths(run_date, taxi_type, run_id)
 
@@ -138,14 +140,14 @@ def ride_duration_prediction(
     
 
 def run():
-    # taxi_type = sys.argv[1] #"green"
-    # year = int(sys.argv[2]) #2021
-    # month = int(sys.argv[3]) #3
-    # run_id = sys.argv[4] #"1"
+    taxi_type = sys.argv[1] #"green"
+    year = int(sys.argv[2]) #2021
+    month = int(sys.argv[3]) #3
+    run_id = sys.argv[4] #"1"
     #RUN_ID = os.getenv("RUN_ID")
     #apply_model(input_file, run_id, output_file)
 
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\malis\\code\\ML\\MLOps\\notebooks\\nyc-taxi-423901-20002e143ea8.json"
+    
 
     ride_duration_prediction(taxi_type=taxi_type, run_id=run_id, run_date=datetime(year, month, 1))
 
