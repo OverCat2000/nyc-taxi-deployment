@@ -131,6 +131,14 @@ def run():
     #RUN_ID = os.getenv("RUN_ID")
     #apply_model(input_file, run_id, output_file)
 
+    gcp_credentials_block = GcpCredentials.load(name="my-gcp-creds")
+    gcs_credentials_dict = gcp_credentials_block.service_account_info
+
+    with open('gcs_credentials.json', 'w') as f:
+        json.dump(gcs_credentials_dict, f)
+
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath('gcs_credentials.json')
+
     ride_duration_prediction(taxi_type=taxi_type, run_id=run_id, run_date=datetime(year, month, 1))
 
 if __name__ == "__main__":
