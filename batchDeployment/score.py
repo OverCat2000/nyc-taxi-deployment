@@ -124,6 +124,7 @@ def ride_duration_prediction(
     
 
 def run():
+    print("hello")
     taxi_type = sys.argv[1] #"green"
     year = int(sys.argv[2]) #2021
     month = int(sys.argv[3]) #3
