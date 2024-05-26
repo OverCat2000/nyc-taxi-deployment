@@ -124,7 +124,7 @@ def get_paths(run_date, taxi_type, run_id):
 def ride_duration_prediction(
         taxi_type: str,
         run_id: str,
-        run_date: datetime = None):
+        run_date: datetime):
     if run_date is None:
         ctx = get_run_context()
         run_date = ctx.flow_run.expected_start_time
